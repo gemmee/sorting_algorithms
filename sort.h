@@ -3,6 +3,15 @@
 
 #include <stdlib.h>
 
+
+/* Enum for cocktail sort direction */
+typedef enum direction_e
+{
+  FORWARD,
+  BACKWARD
+} direction_t;
+
+
 /**
  * struct listint_s - Doubly linked list node
  *
@@ -17,6 +26,7 @@ typedef struct listint_s
     struct listint_s *next;
 } listint_t;
 
+/* Function prototypes */
 void bubble_sort(int *array, size_t size);
 void print_array(const int *array, size_t size);
 void print_list(const listint_t *list);
@@ -27,4 +37,4 @@ void shell_sort(int *array, size_t size);
 void cocktail_sort_list(listint_t **list);
 
 
-#endif
+#endif /* SORT_H */
