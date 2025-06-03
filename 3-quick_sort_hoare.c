@@ -1,12 +1,12 @@
 #include "sort.h"
 
 void quick_sort_recursive(int *array, int low, int high, size_t size);
-int lomuto_partition(int *array, int low, int high, size_t size);
+int hoare_partition(int *array, int low, int high, size_t size);
 
 
 /**
  * quick_sort - sorts an array using the Quick sort algorithm with
- * Lomuto partition scheme implementation
+ * hoare partition scheme implementation
  * @array: the array to be sorted
  * @size: Number of elements in the array
  *
@@ -35,47 +35,44 @@ void quick_sort_recursive(int *array, int low, int high, size_t size)
 
   if (low < high)
   {
-    pivot_idx = lomuto_partition(array, low, high, size);
-    quick_sort_recursive(array, low, pivot_idx - 1, size);
+    pivot_idx = hoare_partition(array, low, high, size);
+    quick_sort_recursive(array, low, pivot_idx, size);
     quick_sort_recursive(array, pivot_idx + 1, high, size);
   }
 }
 
 
 /**
- * lomuto_partition - rearranges the subarray in place using lomuto partition scheme
+ * hoare_partition - rearranges the subarray in place using hoare partition scheme
  * @array: the array
  * @low: the lowest index of the subarray
  * @high: the highest index of the subarray
  * @size: the size of the original array (needed for printing)
  */
-int lomuto_partition(int *array, int low, int high, size_t size)
+int hoare_partition(int *array, int low, int high, size_t size)
 {
   int i, j, pivot, temp;
 
-  pivot = array[high];
+  pivot = array[low];
   i = low - 1;
-  for (j = low; j < high; j++)
+  j = high + 1;
+  while (i < j)
   {
-    if (array[j] <= pivot)
+    do {
+      i++;
+    } while (array[i] < pivot);
+    
+    do {
+      j--;
+    } while (array[j] > pivot);
+
+    if (i < j)
     {
-      i = i + 1;
-      if (i != j)
-      {
-        temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-        print_array(array, size);
-      }
+      temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+      print_array(array, size);
     }
   }
-  if ((i + 1) != high)
-  {
-    temp = array[i + 1];
-    array[i + 1] = array[high];
-    array[high] = temp;
-    print_array(array, size);
-  }
-  
-  return (i + 1);
+  return (j);
 }
