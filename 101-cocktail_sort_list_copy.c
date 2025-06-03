@@ -49,6 +49,9 @@ void swap_adjacent(listint_t **list, listint_t **current, direction_t dir)
 /**
  * cocktail_sort_list - Sorts a doubly linked list using Cocktail Shaker Sort
  * @list: Double pointer to the head of the list
+ *
+ * Author: Gamachu
+ * Place: Mariyam, Jun 03, 2025
  */
 void cocktail_sort_list(listint_t **list)
 {
@@ -76,11 +79,13 @@ void cocktail_sort_list(listint_t **list)
 					swap_adjacent(list, &current, FORWARD);
 					swapped = 1;
 				}
-				current = current->next;
+				else
+				{
+					current = current->next;				}
 			}
 			end = current;
-      if (!swapped)
-        break;
+      			if (!swapped)
+        			break;
 			dir = BACKWARD;
 		}
 		else
@@ -93,8 +98,13 @@ void cocktail_sort_list(listint_t **list)
 					swap_adjacent(list, &current, BACKWARD);
 					swapped = 1;
 				}
-				current = current->prev;
+				else
+				{
+					current = current->prev;
+				}
 			}
+			if (!swapped)
+			    break;
 			start = current ? current->next : *list;
 			dir = FORWARD;
 		}
